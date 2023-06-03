@@ -1,0 +1,15 @@
+#!/bin/bash
+
+if [[ $1 == "-s" ]]
+then
+	arduino-cli monitor -p /dev/ttyUSB0 -c baudrate=115200
+elif [[ $1 == "-cr" ]]
+then
+	arduino-cli compile --fqbn esp8266:esp8266:nodemcu . &&
+	arduino-cli upload -p /dev/ttyUSB0 --fqbn esp8266:esp8266:nodemcu &&
+	arduino-cli monitor -p /dev/ttyUSB0 -c baudrate=115200
+else
+	echo "USAGE:"
+	echo -e "\t-cr\t # To compile, upload and run serial monitor"
+	echo -e "\t-s\t # For serial monitor"
+fi
